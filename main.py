@@ -15,18 +15,22 @@ clock = pygame.time.Clock()
 FPS = 60 
 
 #intialization for game display the borders 
-WHITE = (255, 255, 255)
-GREY = (212, 210, 212)
-BLACK = (0, 0, 0)
-BLUE = (0, 97, 148)
+WHITE=(255,255,255)
+GREY=(212,210,212)
+BLACK=(0,0,0)
+BLUE=(0,97,148)
+RED=  (162,8,8)
+ORANGE = (183, 119, 0)
+GREEN = (0, 127, 33)
+YELLOW = (197, 199, 37)
 
 #no of balls and velocity of them 
 score = 0
 balls = 1
 velocity = 4
 
-paddle_width = 54
-paddle_height = 20 
+paddle_width = 124
+paddle_height = 15
 
 
 #sprite class used to combine image and rect/sounds/animations etc 
@@ -59,12 +63,12 @@ class Paddle(pygame.sprite.Sprite):
 
 class Ball(pygame.sprite.Sprite):
 
-    def __init__(self, color, width, height):
+    def __init__(self, color, width, height, vx, vy):
         super().__init__()
         self.image = pygame.Surface([width, height])
         pygame.draw.rect(self.image, color, [0, 0, width, height])
         self.rect = self.image.get_rect()
-        self.velocity = [velocity, velocity]
+        self.velocity = [vx, vy]
 
     def update(self):
         self.rect.x += self.velocity[0]
@@ -79,12 +83,19 @@ paddle = Paddle(BLUE, paddle_width, paddle_height)
 paddle.rect.x = WIDTH // 2 - paddle_width // 2
 paddle.rect.y = HEIGHT - 65
 
-ball = Ball(WHITE, 10, 10)
-ball.rect.x = WIDTH // 2 - 5
-ball.rect.y = HEIGHT // 2 - 5 
+ball_1 = Ball(WHITE, 10, 10, 5,2)
+ball_1.rect.x= WIDTH //2 - 5
+ball_1.rect.y = HEIGHT//3 - 5
+
+ball_2 = Ball(RED, 10, 10,3,8)
+ball_2.rect.x= WIDTH //2 - 5
+ball_2.rect.y = HEIGHT//5 - 5
+
+balls_list=[ball_1,ball_2]
 
 all_sprites_list.add(paddle)
-all_sprites_list.add(ball)
+for ball in balls_list:
+    all_sprites_list.add(ball)
 
 
 def main(score, balls):
@@ -103,36 +114,35 @@ def main(score, balls):
             paddle.moveRight(10)
 
         all_sprites_list.update()
+        for ball in balls_list:
+            if ball.rect.y < 40:
+                ball.velocity[1] = -ball.velocity[1]
+                wall_sound.play()
 
-        if ball.rect.y < 40:
-            ball.velocity[1] = -ball.velocity[1]
-            wall_sound.play()
+            if ball.rect.x >= WIDTH - wall_width - 10:
+                ball.velocity[0] = -ball.velocity[0]
+                wall_sound.play()
 
-        if ball.rect.x >= WIDTH - wall_width - 10:
-            ball.velocity[0] = -ball.velocity[0]
-            wall_sound.play()
+            if ball.rect.x <= wall_width:
+                ball.velocity[0] = -ball.velocity[0]
+                wall_sound.play()
 
-        if ball.rect.x <= wall_width:
-            ball.velocity[0] = -ball.velocity[0]
-            wall_sound.play()
+            if ball.rect.y > HEIGHT:
+                balls -= 1
+                if balls == 0:
+                    font = pygame.font.Font('text/Caviar_Dreams_Bold.ttf', 70)
+                    text = font.render("GAME OVER", 1, WHITE)
+                    text_rect = text.get_rect(center=(WIDTH / 2, HEIGHT / 2))
+                    screen.blit(text, text_rect)
+                    pygame.display.update()
+                    pygame.time.wait(2000)
+                    run = False
 
-        if ball.rect.y > HEIGHT:
-            balls -= 1
-
-        if balls == 0:
-            font = pygame.font.Font('text/Caviar_Dreams_Bold.ttf', 70)
-            text = font.render("GAME OVER", 1, WHITE)
-            text_rect = text.get_rect(center=(WIDTH / 2, HEIGHT / 2))
-            screen.blit(text, text_rect)
-            pygame.display.update()
-            pygame.time.wait(2000)
-            run = False
-
-        if pygame.sprite.collide_mask(ball, paddle):
-            ball.rect.x += ball.velocity[0]
-            ball.rect.y -= ball.velocity[1]
-            ball.bounce()
-            paddle_sound.play()
+            if pygame.sprite.collide_mask(ball, paddle):
+                ball.rect.x += ball.velocity[0]
+                ball.rect.y -= ball.velocity[1]
+                ball.bounce()
+                paddle_sound.play()
 
         screen.fill(BLACK) 
 
