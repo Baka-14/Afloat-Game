@@ -1,5 +1,5 @@
 import pygame 
-
+import random
 
 #initialization of all functions in pygame and mixer for the audio
 pygame.init()
@@ -26,7 +26,6 @@ YELLOW = (197, 199, 37)
 
 #no of balls and velocity of them 
 score = 0
-balls = 1
 velocity = 4
 
 paddle_width = 124
@@ -83,15 +82,25 @@ paddle = Paddle(BLUE, paddle_width, paddle_height)
 paddle.rect.x = WIDTH // 2 - paddle_width // 2
 paddle.rect.y = HEIGHT - 65
 
-ball_1 = Ball(WHITE, 10, 10, 5,2)
-ball_1.rect.x= WIDTH //2 - 5
-ball_1.rect.y = HEIGHT//3 - 5
+ball_1 = Ball(WHITE, 10, 10, random.randint(2,5),random.randint(2,5))
+ball_1.rect.x= WIDTH //random.randint(2,6) - random.randint(2,10)
+ball_1.rect.y = HEIGHT//5 - 5
 
-ball_2 = Ball(RED, 10, 10,3,8)
-ball_2.rect.x= WIDTH //2 - 5
+ball_2 = Ball(RED, 10, 10,random.randint(2,5),random.randint(2,5))
+ball_2.rect.x= WIDTH //random.randint(2,6) - random.randint(2,10)
 ball_2.rect.y = HEIGHT//5 - 5
 
-balls_list=[ball_1,ball_2]
+ball_3 = Ball(GREEN, 10, 10,random.randint(2,5),random.randint(2,5))
+ball_3.rect.x= WIDTH //random.randint(2,6) - random.randint(2,10)
+ball_3.rect.y = HEIGHT//5 - 5
+
+ball_4 = Ball(YELLOW, 10, 10,random.randint(2,5),random.randint(2,5))
+ball_4.rect.x= WIDTH //random.randint(2,6) - random.randint(2,10)
+ball_4.rect.y = HEIGHT//5 - 5
+
+balls_list=[ball_1,ball_2,ball_3,ball_4]
+
+balls = len(balls_list)
 
 all_sprites_list.add(paddle)
 for ball in balls_list:
