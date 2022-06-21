@@ -122,7 +122,7 @@ def main(score, balls):
             balls += 1
 
         if balls == 4:
-            font = pygame.font.Font('text/DSEG14Classic-Bold.ttf', 70)
+            font = pygame.font.Font('text/Caviar_Dreams_Bold.ttf', 70)
             text = font.render("GAME OVER", 1, WHITE)
             text_rect = text.get_rect(center=(WIDTH / 2, HEIGHT / 2))
             screen.blit(text, text_rect)
@@ -148,7 +148,7 @@ def main(score, balls):
     pygame.draw.line(screen, BLUE, [(WIDTH - wall_width / 2) - 1, HEIGHT - 65 + paddle_height / 2 - 54 / 2], [(WIDTH - wall_width / 2) - 1, HEIGHT - 65 + paddle_height / 2 - 54 / 2 + 54], wall_width)
 
 
-    font = pygame.font.Font('text/DSEG14Classic-Bold.ttf', 70)
+    font = pygame.font.Font('text/Caviar_Dreams_Bold.ttf', 70)
     text = font.render(str(f"{score:03}"), 1, WHITE)
     screen.blit(text, (80, 120))
     text = font.render(str(balls), 1, WHITE)
