@@ -1,13 +1,15 @@
 import pygame 
 import random
 
+from pyparsing import White
+
 #initialization of all functions in pygame and mixer for the audio
 pygame.init()
 pygame.mixer.init() 
 
 #display stuff
-WIDTH = 893
-HEIGHT = 900
+WIDTH = 600
+HEIGHT = 750
 size = (WIDTH, HEIGHT)
 screen = pygame.display.set_mode(size)
 pygame.display.set_caption("Afloat")
@@ -78,11 +80,11 @@ class Ball(pygame.sprite.Sprite):
         self.velocity[1] = -self.velocity[1]
 
 #intialization of objects 
-paddle = Paddle(BLUE, paddle_width, paddle_height)
+paddle = Paddle(WHITE, paddle_width, paddle_height)
 paddle.rect.x = WIDTH // 2 - paddle_width // 2
 paddle.rect.y = HEIGHT - 65
 
-ball_1 = Ball(WHITE, 10, 10, random.randint(2,5),random.randint(2,5))
+ball_1 = Ball(BLUE, 10, 10, random.randint(2,5),random.randint(2,5))
 ball_1.rect.x= WIDTH //random.randint(2,6) - random.randint(2,10)
 ball_1.rect.y = HEIGHT//5 - 5
 
@@ -94,11 +96,9 @@ ball_3 = Ball(GREEN, 10, 10,random.randint(2,5),random.randint(2,5))
 ball_3.rect.x= WIDTH //random.randint(2,6) - random.randint(2,10)
 ball_3.rect.y = HEIGHT//5 - 5
 
-ball_4 = Ball(YELLOW, 10, 10,random.randint(2,5),random.randint(2,5))
-ball_4.rect.x= WIDTH //random.randint(2,6) - random.randint(2,10)
-ball_4.rect.y = HEIGHT//5 - 5
 
-balls_list=[ball_1,ball_2,ball_3,ball_4]
+
+balls_list=[ball_1,ball_2,ball_3]
 
 balls = len(balls_list)
 
@@ -157,12 +157,12 @@ def main(score, balls):
 
     
 
-        pygame.draw.line(screen, GREY, [0, 19], [WIDTH, 19], 40)
-        pygame.draw.line(screen, GREY, [(wall_width / 2) - 1, 0], [(wall_width / 2) - 1, HEIGHT], wall_width)
-        pygame.draw.line(screen, GREY, [(WIDTH - wall_width / 2) - 1, 0], [(WIDTH - wall_width / 2) - 1, HEIGHT], wall_width)
+        pygame.draw.line(screen, YELLOW, [0, 19], [WIDTH, 19], 40)
+        pygame.draw.line(screen, YELLOW, [(wall_width / 2) - 1, 0], [(wall_width / 2) - 1, HEIGHT], wall_width)
+        pygame.draw.line(screen, YELLOW, [(WIDTH - wall_width / 2) - 1, 0], [(WIDTH - wall_width / 2) - 1, HEIGHT], wall_width)
 
-        pygame.draw.line(screen, BLUE, [(wall_width / 2) - 1, HEIGHT - 65 + paddle_height / 2 - 54 / 2], [(wall_width / 2) - 1, HEIGHT - 65 + paddle_height / 2 - 54 / 2 + 54], wall_width)
-        pygame.draw.line(screen, BLUE, [(WIDTH - wall_width / 2) - 1, HEIGHT - 65 + paddle_height / 2 - 54 / 2], [(WIDTH - wall_width / 2) - 1, HEIGHT - 65 + paddle_height / 2 - 54 / 2 + 54], wall_width)
+        pygame.draw.line(screen, BLACK, [(wall_width / 2) - 1, HEIGHT - 65 + paddle_height / 2 - 54 / 2], [(wall_width / 2) - 1, HEIGHT - 65 + paddle_height / 2 - 54 / 2 + 54], wall_width)
+        pygame.draw.line(screen, BLACK, [(WIDTH - wall_width / 2) - 1, HEIGHT - 65 + paddle_height / 2 - 54 / 2], [(WIDTH - wall_width / 2) - 1, HEIGHT - 65 + paddle_height / 2 - 54 / 2 + 54], wall_width)
 
 
         all_sprites_list.draw(screen)
