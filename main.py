@@ -1,4 +1,5 @@
-import pygame
+import pygame 
+
 
 #initialization of all functions in pygame and mixer for the audio
 pygame.init()
@@ -6,7 +7,7 @@ pygame.mixer.init()
 
 #display stuff
 WIDTH = 893
-HEIGHT = 1000
+HEIGHT = 900
 size = (WIDTH, HEIGHT)
 screen = pygame.display.set_mode(size)
 pygame.display.set_caption("Afloat")
@@ -22,16 +23,18 @@ BLUE = (0, 97, 148)
 #no of balls and velocity of them 
 score = 0
 balls = 1
-velocity = 4 
+velocity = 4
 
 paddle_width = 54
 paddle_height = 20 
-wall_width = 16
+
 
 #sprite class used to combine image and rect/sounds/animations etc 
 #implies sprite object is a representation of a real object in the game 
 
 all_sprites_list = pygame.sprite.Group()
+
+wall_width = 16
 
 paddle_sound = pygame.mixer.Sound('sounds/sounds_paddle.wav')
 wall_sound = pygame.mixer.Sound('sounds/sounds_wall.wav')
@@ -86,8 +89,6 @@ all_sprites_list.add(ball)
 
 def main(score, balls):
 
-    step = 0
-
     run = True
     while run:
 
@@ -116,12 +117,9 @@ def main(score, balls):
             wall_sound.play()
 
         if ball.rect.y > HEIGHT:
-            ball.rect.x = WIDTH // 2 - 5
-            ball.rect.y = HEIGHT // 2 - 5
-            ball.velocity[1] = ball.velocity[1]
-            balls += 1
+            balls -= 1
 
-        if balls == 4:
+        if balls == 0:
             font = pygame.font.Font('text/Caviar_Dreams_Bold.ttf', 70)
             text = font.render("GAME OVER", 1, WHITE)
             text_rect = text.get_rect(center=(WIDTH / 2, HEIGHT / 2))
@@ -136,33 +134,22 @@ def main(score, balls):
             ball.bounce()
             paddle_sound.play()
 
-    screen.fill(BLACK) 
+        screen.fill(BLACK) 
 
     
 
-    pygame.draw.line(screen, GREY, [0, 19], [WIDTH, 19], 40)
-    pygame.draw.line(screen, GREY, [(wall_width / 2) - 1, 0], [(wall_width / 2) - 1, HEIGHT], wall_width)
-    pygame.draw.line(screen, GREY, [(WIDTH - wall_width / 2) - 1, 0], [(WIDTH - wall_width / 2) - 1, HEIGHT], wall_width)
+        pygame.draw.line(screen, GREY, [0, 19], [WIDTH, 19], 40)
+        pygame.draw.line(screen, GREY, [(wall_width / 2) - 1, 0], [(wall_width / 2) - 1, HEIGHT], wall_width)
+        pygame.draw.line(screen, GREY, [(WIDTH - wall_width / 2) - 1, 0], [(WIDTH - wall_width / 2) - 1, HEIGHT], wall_width)
 
-    pygame.draw.line(screen, BLUE, [(wall_width / 2) - 1, HEIGHT - 65 + paddle_height / 2 - 54 / 2], [(wall_width / 2) - 1, HEIGHT - 65 + paddle_height / 2 - 54 / 2 + 54], wall_width)
-    pygame.draw.line(screen, BLUE, [(WIDTH - wall_width / 2) - 1, HEIGHT - 65 + paddle_height / 2 - 54 / 2], [(WIDTH - wall_width / 2) - 1, HEIGHT - 65 + paddle_height / 2 - 54 / 2 + 54], wall_width)
+        pygame.draw.line(screen, BLUE, [(wall_width / 2) - 1, HEIGHT - 65 + paddle_height / 2 - 54 / 2], [(wall_width / 2) - 1, HEIGHT - 65 + paddle_height / 2 - 54 / 2 + 54], wall_width)
+        pygame.draw.line(screen, BLUE, [(WIDTH - wall_width / 2) - 1, HEIGHT - 65 + paddle_height / 2 - 54 / 2], [(WIDTH - wall_width / 2) - 1, HEIGHT - 65 + paddle_height / 2 - 54 / 2 + 54], wall_width)
 
 
-    font = pygame.font.Font('text/Caviar_Dreams_Bold.ttf', 70)
-    text = font.render(str(f"{score:03}"), 1, WHITE)
-    screen.blit(text, (80, 120))
-    text = font.render(str(balls), 1, WHITE)
-    screen.blit(text, (520, 41))
-    text = font.render('000', 1, WHITE)
-    screen.blit(text, (580, 120))
-    text = font.render('1', 1, WHITE)
-    screen.blit(text, (20, 40))
+        all_sprites_list.draw(screen)
 
-    all_sprites_list.draw(screen)
-
-    pygame.display.update()
-
-    clock.tick(FPS)
+        pygame.display.update()
+        clock.tick(FPS)
 
     pygame.quit()
 
