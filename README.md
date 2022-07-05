@@ -1,5 +1,5 @@
 # Afloat-Game
-Applying DRL to a Basic Retro Game that we created 
+Applying DRL to a Basic Retro Game that @saianish03 and I created. 
 
 <img width="400" alt="Afloat home page" src="https://user-images.githubusercontent.com/73593914/174805822-543b8f9c-0050-4f4e-9448-d2f05c498864.png">
 
