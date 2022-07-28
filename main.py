@@ -115,7 +115,7 @@ def main(score, balls):
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 run = False
-
+        #ann output
         keys = pygame.key.get_pressed()
         if keys[pygame.K_LEFT]:
             paddle.moveLeft(10)
@@ -146,7 +146,7 @@ def main(score, balls):
                     pygame.display.update()
                     pygame.time.wait(2000)
                     run = False
-
+            #store the x,y and pass it 
             if pygame.sprite.collide_mask(ball, paddle):
                 ball.rect.x += ball.velocity[0]
                 ball.rect.y -= ball.velocity[1]
@@ -167,7 +167,8 @@ def main(score, balls):
 
         all_sprites_list.draw(screen)
 
-        pygame.display.update()
+        pygame.display.update() 
+        
         clock.tick(FPS)
 
     pygame.quit()
